@@ -14,31 +14,36 @@ function Square(props) {
 }
 
 function Board(props) {
+    const boardSize = 3;
     let renderSquare = i => {
         return (
             <Square
+                key={i}
                 value={props.squares[i]}
                 onClick={() => props.onClick(i)}
             />
         );
     };
+
+    let generateRow = (i) => {
+        let row = [];
+        for (let j = 0; j < boardSize; j++) {
+            row.push(renderSquare(i * boardSize + j));
+        }
+        return row
+    }
+
+    let generateBoard = () => {
+        let board = [];
+        for (let i = 0; i < boardSize; i++) {
+            board.push(<div key={i} className="board-row">{generateRow(i)}</div>);
+        }
+        return board;
+    }
+
     return (
         <div>
-            <div className="board-row">
-                {renderSquare(0)}
-                {renderSquare(1)}
-                {renderSquare(2)}
-            </div>
-            <div className="board-row">
-                {renderSquare(3)}
-                {renderSquare(4)}
-                {renderSquare(5)}
-            </div>
-            <div className="board-row">
-                {renderSquare(6)}
-                {renderSquare(7)}
-                {renderSquare(8)}
-            </div>
+            {generateBoard()}
         </div>
     );
 
@@ -89,11 +94,16 @@ class Game extends React.Component {
             const col = 1 + step.latestMovedSquare % 3;
             const row = 1 + Math.floor(step.latestMovedSquare / 3);
             const desc = move ?
-                '(' + col + ',' + row + ') Go to move #' + move :
+                '(' + col + ',' + row + ') => move #' + move :
                 'Go to game start';
             return (
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                    <button
+                        className={
+                            move === this.state.stepNumber && move !== 0 ? 'move-list-item-selected' : ''
+                        }
+                        onClick={() => this.jumpTo(move)}>{desc}
+                    </button>
                 </li>
             )
         });
