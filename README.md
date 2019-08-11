@@ -2,9 +2,11 @@
 React tutorial, plus all the improvements suggested.
 
 >npm install
+
 to install all dependencies
 
 >npm start
+
 to run the app
 
 
