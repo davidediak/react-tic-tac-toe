@@ -1,6 +1,13 @@
 # react-tic-tac-toe
 React tutorial, plus all the improvements suggested.
 
+>npm install
+  to install all dependencies
+>npm start
+  to run the app
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
